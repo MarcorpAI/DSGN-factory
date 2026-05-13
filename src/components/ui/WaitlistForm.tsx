@@ -5,7 +5,6 @@ import { useState, FormEvent } from 'react';
 export default function WaitlistForm({ compact = false }: { compact?: boolean }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [position, setPosition] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -22,7 +21,6 @@ export default function WaitlistForm({ compact = false }: { compact?: boolean })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Something went wrong');
-      setPosition(data.position);
       setSubmitted(true);
     } catch (err: any) {
       setError(err.message || 'Failed to join waitlist');
@@ -40,7 +38,7 @@ export default function WaitlistForm({ compact = false }: { compact?: boolean })
             You&apos;re in
           </p>
           <p className="mt-3 font-grotesque text-[clamp(42px,7vw,78px)] font-black leading-[0.9] text-milk">
-            Spot #{position || '—'} secured.
+            Your spot is secured.
           </p>
           <p className="mt-4 max-w-md font-inter text-base leading-7 text-white/62">
             You&apos;ve joined the Design Factory waitlist. We&apos;ll reach out when the next update is ready.
