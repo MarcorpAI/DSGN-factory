@@ -33,13 +33,19 @@ export default function WaitlistForm({ compact = false }: { compact?: boolean })
 
   if (submitted) {
     return (
-      <div className={compact ? 'text-left' : 'text-center'}>
-        <p className="font-grotesque font-black text-4xl text-acid md:text-5xl">
-          You&apos;re #{position || '—'} in line.
-        </p>
-        <p className="mt-2 font-inter text-base text-white/55">
-          We&apos;ll reach out when your cohort opens.
-        </p>
+      <div className={`glass-panel relative overflow-hidden p-6 md:p-8 ${compact ? 'text-left' : 'mx-auto max-w-xl text-center'}`}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(204,255,61,0.24),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(53,166,255,0.2),transparent_32%)]" />
+        <div className="relative z-10">
+          <p className="font-inter text-[11px] font-bold uppercase tracking-[0.16em] text-acid">
+            You&apos;re in
+          </p>
+          <p className="mt-3 font-grotesque text-[clamp(42px,7vw,78px)] font-black leading-[0.9] text-milk">
+            Spot #{position || '—'} secured.
+          </p>
+          <p className="mt-4 max-w-md font-inter text-base leading-7 text-white/62">
+            You&apos;ve joined the Design Factory waitlist. We&apos;ll reach out when the next update is ready.
+          </p>
+        </div>
       </div>
     );
   }

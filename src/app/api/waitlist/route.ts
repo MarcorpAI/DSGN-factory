@@ -32,6 +32,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'This email is already on the waitlist' }, { status: 409 });
     }
 
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2021') {
+      console.error('Waitlist table is missing. Run `npm run db:deploy` against the production database.', error);
+      return NextResponse.json({ error: 'Waitlist is not ready yet. Please try again soon.' }, { status: 503 });
+    }
+
     console.error('Waitlist signup failed', error);
     return NextResponse.json({ error: 'Failed to join waitlist' }, { status: 500 });
   }
@@ -46,15 +51,24 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const signups = await prisma.waitlist.findMany({
-    orderBy: { createdAt: 'desc' },
-    select: {
-      id: true,
-      email: true,
-      position: true,
-      createdAt: true,
-    },
-  });
+  try {
+    const signups = await prisma.waitlist.findMany({
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        email: true,
+        position: true,
+        createdAt: true,
+      },
+    });
 
-  return NextResponse.json({ count: signups.length, signups });
+    return NextResponse.json({ count: signups.length, signups });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2021') {
+      return NextResponse.json({ error: 'Waitlist table is missing. Run the production database migration.' }, { status: 503 });
+    }
+
+    console.error('Waitlist admin fetch failed', error);
+    return NextResponse.json({ error: 'Failed to load waitlist' }, { status: 500 });
+  }
 }
