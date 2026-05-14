@@ -2,17 +2,10 @@
 
 import { useState, FormEvent } from 'react';
 
-const signupTypes = [
-  { value: 'learner', label: 'Learner' },
-  { value: 'instructor', label: 'Instructor / Tutor' },
-  { value: 'organization', label: 'Organization / Partner' },
-];
-
 export default function WaitlistForm({ compact = false }: { compact?: boolean }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
-  const [signupType, setSignupType] = useState('learner');
   const [city, setCity] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,7 +24,7 @@ export default function WaitlistForm({ compact = false }: { compact?: boolean })
           name: name.trim(),
           email: email.trim(),
           whatsapp: whatsapp.trim(),
-          signupType,
+          signupType: 'learner',
           city: city.trim(),
         }),
       });
@@ -99,22 +92,10 @@ export default function WaitlistForm({ compact = false }: { compact?: boolean })
           required
           className="h-[54px] border border-white/10 bg-black/30 px-5 font-inter text-base text-milk outline-none transition-colors placeholder:text-white/30 focus:border-electric"
         />
-        <select
-          value={signupType}
-          onChange={(e) => setSignupType(e.target.value)}
-          required
-          className="h-[54px] border border-white/10 bg-black/30 px-5 font-inter text-base text-milk outline-none transition-colors focus:border-electric sm:col-span-2"
-        >
-          {signupTypes.map((type) => (
-            <option key={type.value} value={type.value} className="bg-[#0b0c0f] text-milk">
-              {type.label}
-            </option>
-          ))}
-        </select>
         <button
           type="submit"
           disabled={loading}
-          className="cinema-button h-[54px] px-7 font-inter text-xs font-bold uppercase tracking-[0.12em] disabled:opacity-60 sm:col-span-2"
+          className="cinema-button h-[54px] px-7 font-inter text-[10px] font-bold uppercase tracking-[0.18em] disabled:opacity-60 sm:col-span-2"
         >
           {loading ? 'Submitting...' : 'Join the waitlist'}
         </button>

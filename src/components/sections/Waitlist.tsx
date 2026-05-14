@@ -26,12 +26,12 @@ export default function WaitlistSection() {
     <section ref={sectionRef} id="waitlist" className="relative min-h-screen overflow-hidden px-5 py-28 md:px-8">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(53,166,255,0.28),transparent_34%),radial-gradient(circle_at_68%_66%,rgba(184,132,255,0.18),transparent_30%)]" />
       <div className="container-wide relative z-10 flex min-h-[72vh] flex-col items-center justify-center text-center">
-        <span className="final-reveal eyebrow">Join the factory</span>
-        <h2 className="final-reveal mt-6 max-w-6xl font-grotesque text-[clamp(64px,12vw,178px)] font-black leading-[0.8] tracking-[-0.03em] text-milk">
-          Learn what you can turn into real work.
+        <span className="final-reveal eyebrow">Open lesson signup</span>
+        <h2 className="final-reveal mt-6 max-w-5xl font-grotesque text-[clamp(54px,9vw,128px)] font-black leading-[0.86] tracking-[-0.02em] text-milk">
+          Start with the open lesson.
         </h2>
         <p className="final-reveal mt-8 max-w-2xl font-inter text-lg leading-8 text-white/58">
-          Join as a student, teacher, or creative partner. Design Factory is being built for practical learning, portfolio growth, collaboration, and opportunity matching.
+          Sign up to learn how the scholarship works, what course path fits you, and how Design Factory prepares students for placement opportunities after training.
         </p>
         <div className="final-reveal mt-10 w-full max-w-2xl">
           <WaitlistForm />

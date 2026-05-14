@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 const links = [
-  { label: 'Showcase', href: '#showcase' },
-  { label: 'Training', href: '#curriculum' },
+  { label: 'Course paths', href: '#curriculum' },
   { label: 'FAQ', href: '#faq' },
 ];
 
@@ -74,7 +73,7 @@ export default function Nav() {
             onClick={scrollTo('#waitlist')}
             className="cinema-button hidden h-10 items-center px-5 font-inter text-xs font-bold uppercase tracking-[0.1em] md:inline-flex"
           >
-            Join waitlist
+            Open lesson
           </a>
 
           <button onClick={() => setOpen(!open)} className="grid h-10 w-10 place-items-center md:hidden" aria-label="Menu">
@@ -95,8 +94,8 @@ export default function Nav() {
             {link.label}
           </a>
         ))}
-        <a href="#waitlist" onClick={scrollTo('#waitlist')} className="cinema-button inline-flex h-12 w-fit items-center px-6 font-inter text-xs font-bold uppercase tracking-[0.12em]">
-          Join waitlist
+        <a href="#waitlist" onClick={scrollTo('#waitlist')} className="cinema-button inline-flex h-11 w-fit items-center px-5 font-inter text-[10px] font-bold uppercase tracking-[0.18em]">
+          Open lesson
         </a>
       </div>
     </>

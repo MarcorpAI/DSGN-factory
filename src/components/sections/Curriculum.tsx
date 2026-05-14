@@ -4,11 +4,11 @@ import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 
 const tracks = [
-  { id: '01', name: 'UI/UX Design', items: ['Figma', 'Prototyping', 'Design systems', 'Product thinking'], size: 'lg:col-span-5 lg:row-span-2', featured: true },
-  { id: '02', name: 'Graphics + Branding', items: ['Identity', 'Typography', 'Campaigns', 'Marketing design'], size: 'lg:col-span-3' },
-  { id: '03', name: 'Architecture 3D', items: ['3Ds Max', 'Rendering', 'Lighting', 'Walkthroughs'], size: 'lg:col-span-4' },
-  { id: '04', name: 'Animation + Motion', items: ['Storytelling', 'Video editing', 'Motion graphics'], size: 'lg:col-span-4' },
-  { id: '05', name: 'Digital Content', items: ['Creative direction', 'Social content', 'Production'], size: 'lg:col-span-3' },
+  { id: '01', name: 'UI/UX Design', outcome: 'Design apps, websites, prototypes, user flows, and product interfaces.', items: ['Figma', 'Prototyping', 'Design systems'], size: 'lg:col-span-5 lg:row-span-2', featured: true },
+  { id: '02', name: 'Architecture 3D', outcome: 'Create interior, exterior, and architectural visualization projects.', items: ['3D modelling', 'Rendering', 'Walkthroughs'], size: 'lg:col-span-4' },
+  { id: '03', name: 'Graphics + Branding', outcome: 'Build brand identity, social media designs, campaigns, and visual systems.', items: ['Identity', 'Typography', 'Campaigns'], size: 'lg:col-span-3' },
+  { id: '04', name: 'Animation + Motion', outcome: 'Bring ideas to life through motion graphics, editing, and storytelling.', items: ['Motion graphics', 'Video editing', 'Storytelling'], size: 'lg:col-span-4' },
+  { id: '05', name: 'Digital Content', outcome: 'Create engaging media for brands, social platforms, and online campaigns.', items: ['Content design', 'Creative direction', 'Production'], size: 'lg:col-span-3' },
 ];
 
 export default function Curriculum() {
@@ -34,13 +34,13 @@ export default function Curriculum() {
       <div className="container-wide">
         <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <span className="eyebrow">Training programmes</span>
+            <span className="eyebrow">Course paths</span>
             <h2 className="mt-5 font-grotesque text-[clamp(48px,7vw,104px)] font-black leading-[0.9] tracking-[-0.02em] text-milk">
-              Multiple paths. One creative factory.
+              Choose the skill you want to build.
             </h2>
           </div>
           <p className="max-w-lg font-inter text-base leading-7 text-white/54">
-            Like a modern course marketplace, each path can be led by different teachers while staying grounded in practical assignments, portfolio outcomes, and real-world exposure.
+            Pick a path, learn by building, and create portfolio work that can be shown to teams looking for creative talent.
           </p>
         </div>
 
@@ -63,6 +63,7 @@ export default function Curriculum() {
                   <h3 className={`max-w-sm font-grotesque font-black leading-[0.92] tracking-[-0.01em] text-milk ${
                     track.featured ? 'text-[clamp(42px,5vw,72px)]' : 'text-[clamp(32px,2.8vw,46px)]'
                   }`}>{track.name}</h3>
+                  <p className="mt-4 max-w-sm font-inter text-sm leading-6 text-white/54">{track.outcome}</p>
                   <div className="mt-7 flex flex-wrap gap-2.5">
                     {track.items.map((item) => (
                       <span key={item} className="border border-white/12 bg-white/[0.045] px-3.5 py-2.5 font-inter text-[11px] font-semibold leading-none text-white/60">

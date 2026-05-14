@@ -6,12 +6,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import FAQItem from '../ui/FAQItem';
 
 const faqs = [
-  { question: 'Is Design Factory one course?', answer: 'No. Design Factory is a creative learning and talent development hub. Different teachers can host practical courses across UI/UX, graphics, branding, 3D design, animation, architecture visualization, and digital content.' },
-  { question: 'Who can join?', answer: 'Students, undergraduates, beginners, creative enthusiasts, designers, architects, freelancers, career switchers, and startup creatives can join. The goal is to help people move from learning to earning through practical work.' },
-  { question: 'Are the courses practical?', answer: 'Yes. Courses are project-driven. Students build real concepts, solve design problems, collaborate, and create portfolio pieces instead of only watching theory lessons.' },
-  { question: 'Can teachers publish courses?', answer: 'Yes. The platform is designed for instructors and creative professionals who want to teach structured, practical courses and mentor the next generation of digital creators.' },
-  { question: 'Does Design Factory help with opportunities?', answer: 'The goal is to connect strong students to internships, project work, freelance opportunities, creative agencies, architecture firms, startups, product teams, and international studios where possible.' },
-  { question: 'Do I need experience before joining?', answer: 'No. Some programmes can be beginner-friendly while others can be more advanced. Students should choose a path that matches their current level and career goal.' },
+  { question: 'What is the open lesson?', answer: 'It is an introductory session where students learn about Design Factory, the available course paths, the type of projects they will build, and how scholarship eligibility will be reviewed.' },
+  { question: 'Is there a scholarship?', answer: 'Yes. Design Factory is opening scholarship opportunities for selected students who want access to practical creative training. We are not announcing percentages or prices yet; the open lesson is the first step.' },
+  { question: 'Who should sign up?', answer: 'Students, beginners, undergraduates, career switchers, creative enthusiasts, architects, designers, and freelancers who want practical creative skills can sign up.' },
+  { question: 'What can I learn?', answer: 'Current paths include UI/UX design, architecture 3D, graphics and branding, animation and motion design, and digital content creation.' },
+  { question: 'Will Design Factory help with placement?', answer: 'Yes. The goal is to help students build portfolio proof and prepare them for placement with organizations, studios, startups, and creative teams that need talent.' },
+  { question: 'Do I need experience?', answer: 'No. Some paths are beginner-friendly. The open lesson helps you understand where to start and what support may be available.' },
 ];
 
 export default function FAQ() {
