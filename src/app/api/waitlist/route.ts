@@ -10,6 +10,11 @@ const signupTypes = new Set(['learner', 'instructor', 'organization']);
 const cleanText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 
 export async function POST(request: NextRequest) {
+  if (!process.env.DATABASE_URL) {
+    console.error('Waitlist signup failed: DATABASE_URL is missing.');
+    return NextResponse.json({ error: 'We could not submit your form right now. Please try again shortly.' }, { status: 503 });
+  }
+
   try {
     const body = await request.json();
     const name = cleanText(body.name);
@@ -54,6 +59,11 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  if (!process.env.DATABASE_URL) {
+    console.error('Waitlist admin fetch failed: DATABASE_URL is missing.');
+    return NextResponse.json({ error: 'Unable to load waitlist right now.' }, { status: 503 });
+  }
+
   const configuredToken = process.env.ADMIN_TOKEN;
   const authHeader = request.headers.get('authorization');
   const token = authHeader?.replace(/^Bearer\s+/i, '');

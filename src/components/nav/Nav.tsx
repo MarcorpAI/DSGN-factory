@@ -49,10 +49,9 @@ export default function Nav() {
             : 'border-white/8 bg-white/[0.035] backdrop-blur-xl'
         }`}>
           <a href="#hero" onClick={scrollTo('#hero')} className="group flex items-center gap-3">
-            <span className="grid h-8 w-8 place-items-center border border-white/14 bg-white/8 font-grotesque text-xs font-black text-milk">
-              DF
+            <span className="flex h-9 w-[170px] items-center bg-white px-3">
+              <img src="/design-factory-logo.png" alt="Design Factory" className="h-auto w-full" />
             </span>
-            <span className="font-grotesque text-sm font-bold tracking-tight text-milk">Design Factory</span>
           </a>
 
           <div className="hidden items-center gap-7 md:flex">
