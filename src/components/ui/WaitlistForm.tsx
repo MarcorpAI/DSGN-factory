@@ -2,22 +2,38 @@
 
 import { useState, FormEvent } from 'react';
 
+const signupTypes = [
+  { value: 'learner', label: 'Learner' },
+  { value: 'instructor', label: 'Instructor / Tutor' },
+  { value: 'organization', label: 'Organization / Partner' },
+];
+
 export default function WaitlistForm({ compact = false }: { compact?: boolean }) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [signupType, setSignupType] = useState('learner');
+  const [city, setCity] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!name.trim() || !email.trim() || !whatsapp.trim() || !city.trim()) return;
     setLoading(true);
     setError('');
     try {
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          whatsapp: whatsapp.trim(),
+          signupType,
+          city: city.trim(),
+        }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Something went wrong');
@@ -49,22 +65,58 @@ export default function WaitlistForm({ compact = false }: { compact?: boolean })
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`w-full ${compact ? '' : 'mx-auto max-w-xl'}`}>
-      <div className="glass-panel flex flex-col gap-3 p-2 sm:flex-row">
+    <form onSubmit={handleSubmit} className={`w-full ${compact ? '' : 'mx-auto max-w-2xl'}`}>
+      <div className="glass-panel grid gap-3 p-3 sm:grid-cols-2">
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Full name"
+          required
+          className="h-[54px] border border-white/10 bg-black/30 px-5 font-inter text-base text-milk outline-none transition-colors placeholder:text-white/30 focus:border-electric"
+        />
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="your@email.com"
+          placeholder="Email address"
           required
-          className="h-[54px] flex-1 border border-white/10 bg-black/30 px-5 font-inter text-base text-milk outline-none transition-colors placeholder:text-white/30 focus:border-electric"
+          className="h-[54px] border border-white/10 bg-black/30 px-5 font-inter text-base text-milk outline-none transition-colors placeholder:text-white/30 focus:border-electric"
         />
+        <input
+          type="tel"
+          value={whatsapp}
+          onChange={(e) => setWhatsapp(e.target.value)}
+          placeholder="WhatsApp number"
+          required
+          className="h-[54px] border border-white/10 bg-black/30 px-5 font-inter text-base text-milk outline-none transition-colors placeholder:text-white/30 focus:border-electric"
+        />
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="City"
+          required
+          className="h-[54px] border border-white/10 bg-black/30 px-5 font-inter text-base text-milk outline-none transition-colors placeholder:text-white/30 focus:border-electric"
+        />
+        <select
+          value={signupType}
+          onChange={(e) => setSignupType(e.target.value)}
+          required
+          className="h-[54px] border border-white/10 bg-black/30 px-5 font-inter text-base text-milk outline-none transition-colors focus:border-electric sm:col-span-2"
+        >
+          {signupTypes.map((type) => (
+            <option key={type.value} value={type.value} className="bg-[#0b0c0f] text-milk">
+              {type.label}
+            </option>
+          ))}
+        </select>
         <button
           type="submit"
           disabled={loading}
-          className="cinema-button h-[54px] min-w-[180px] px-7 font-inter text-xs font-bold uppercase tracking-[0.12em] disabled:opacity-60"
+          className="cinema-button h-[54px] px-7 font-inter text-xs font-bold uppercase tracking-[0.12em] disabled:opacity-60 sm:col-span-2"
         >
-          {loading ? 'Submitting...' : 'Reserve my spot'}
+          {loading ? 'Submitting...' : 'Join the waitlist'}
         </button>
       </div>
       {error && <p className="mt-3 font-inter text-sm text-acid">{error}</p>}

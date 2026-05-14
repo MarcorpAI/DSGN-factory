@@ -5,14 +5,25 @@ import { prisma } from '@/lib/prisma';
 export const runtime = 'nodejs';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const signupTypes = new Set(['learner', 'instructor', 'organization']);
+
+const cleanText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
+    const name = cleanText(body.name);
+    const email = cleanText(body.email).toLowerCase();
+    const whatsapp = cleanText(body.whatsapp);
+    const signupType = cleanText(body.signupType);
+    const city = cleanText(body.city);
 
     if (!email || !emailPattern.test(email)) {
       return NextResponse.json({ error: 'Enter a valid email address' }, { status: 400 });
+    }
+
+    if (!name || !whatsapp || !city || !signupTypes.has(signupType)) {
+      return NextResponse.json({ error: 'Fill in your name, WhatsApp number, role, and city' }, { status: 400 });
     }
 
     const existing = await prisma.waitlist.findUnique({ where: { email } });
@@ -22,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     const position = await prisma.waitlist.count().then((count) => count + 1);
     const signup = await prisma.waitlist.create({
-      data: { email, position },
+      data: { name, email, whatsapp, signupType, city, position },
       select: { position: true },
     });
 
@@ -56,7 +67,11 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
+        name: true,
         email: true,
+        whatsapp: true,
+        signupType: true,
+        city: true,
         position: true,
         createdAt: true,
       },

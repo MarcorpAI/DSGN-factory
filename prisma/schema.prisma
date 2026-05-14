@@ -8,8 +8,12 @@ datasource db {
 }
 
 model Waitlist {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  position  Int
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String   @unique
+  whatsapp    String
+  signupType  String
+  city        String
+  position    Int
+  createdAt   DateTime @default(now())
 }

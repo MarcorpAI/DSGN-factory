@@ -4,9 +4,19 @@ import { FormEvent, useEffect, useMemo, useState } from 'react';
 
 type Signup = {
   id: number;
+  name: string;
   email: string;
+  whatsapp: string;
+  signupType: string;
+  city: string;
   position: number;
   createdAt: string;
+};
+
+const typeLabels: Record<string, string> = {
+  learner: 'Learner',
+  instructor: 'Instructor / Tutor',
+  organization: 'Organization / Partner',
 };
 
 export default function AdminWaitlistPage() {
@@ -21,10 +31,14 @@ export default function AdminWaitlistPage() {
   }, []);
 
   const csv = useMemo(() => {
-    const header = ['position', 'email', 'createdAt'];
+    const header = ['position', 'name', 'email', 'whatsapp', 'signupType', 'city', 'createdAt'];
     const rows = signups.map((signup) => [
       signup.position.toString(),
+      signup.name,
       signup.email,
+      signup.whatsapp,
+      typeLabels[signup.signupType] || signup.signupType,
+      signup.city,
       new Date(signup.createdAt).toISOString(),
     ]);
     return [header, ...rows]
@@ -116,19 +130,26 @@ export default function AdminWaitlistPage() {
         </div>
 
         <div className="overflow-hidden border border-white/12 bg-white/[0.03]">
-          <div className="grid grid-cols-[90px_1fr_180px] border-b border-white/12 px-4 py-3 font-inter text-[10px] font-bold uppercase tracking-[0.14em] text-white/36">
+          <div className="hidden grid-cols-[80px_1fr_1fr_150px_150px_130px] gap-4 border-b border-white/12 px-4 py-3 font-inter text-[10px] font-bold uppercase tracking-[0.14em] text-white/36 lg:grid">
             <span>Position</span>
+            <span>Name</span>
             <span>Email</span>
-            <span className="hidden md:block">Joined</span>
+            <span>WhatsApp</span>
+            <span>Role</span>
+            <span>City</span>
           </div>
 
           {signups.length ? (
             signups.map((signup) => (
-              <div key={signup.id} className="grid grid-cols-[90px_1fr] gap-3 border-b border-white/8 px-4 py-4 last:border-b-0 md:grid-cols-[90px_1fr_180px]">
+              <div key={signup.id} className="grid gap-3 border-b border-white/8 px-4 py-4 last:border-b-0 lg:grid-cols-[80px_1fr_1fr_150px_150px_130px] lg:gap-4">
                 <span className="font-grotesque text-2xl font-black text-milk">#{signup.position}</span>
-                <span className="min-w-0 break-words font-inter text-sm text-white/72">{signup.email}</span>
-                <span className="hidden font-inter text-xs text-white/42 md:block">
-                  {new Date(signup.createdAt).toLocaleString()}
+                <span className="min-w-0 break-words font-inter text-sm font-semibold text-white/82">{signup.name || '—'}</span>
+                <span className="min-w-0 break-words font-inter text-sm text-white/64">{signup.email}</span>
+                <span className="min-w-0 break-words font-inter text-sm text-white/64">{signup.whatsapp || '—'}</span>
+                <span className="font-inter text-sm text-white/64">{typeLabels[signup.signupType] || signup.signupType || '—'}</span>
+                <span className="font-inter text-sm text-white/64">{signup.city || '—'}</span>
+                <span className="font-inter text-xs text-white/34 lg:col-start-2 lg:col-span-5">
+                  Joined {new Date(signup.createdAt).toLocaleString()}
                 </span>
               </div>
             ))
